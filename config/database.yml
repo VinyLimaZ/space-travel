@@ -1,0 +1,22 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  port: 5432
+  host: 127.0.0.1
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: space_travel_development
+
+test:
+  <<: *default
+  database: space_travel_test
+
+production:
+  <<: *default
+  database: space_travel_production
+  username: space_travel
+  password: <%= ENV["SPACE_TRAVEL_DATABASE_PASSWORD"] %>
