@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_13_164820) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_13_205614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_164820) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "space_shuttle_data", force: :cascade do |t|
+    t.bigint "space_shuttle_id", null: false
+    t.integer "max_crew_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_shuttle_id"], name: "index_space_shuttle_data_on_space_shuttle_id"
+  end
+
   create_table "spacecrafts", force: :cascade do |t|
     t.string "name"
     t.integer "velocity"
@@ -88,5 +96,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_164820) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "rocket_data", "payloads"
   add_foreign_key "rocket_data", "spacecrafts", column: "rocket_id"
+  add_foreign_key "space_shuttle_data", "spacecrafts", column: "space_shuttle_id"
   add_foreign_key "spacecrafts", "space_agencies"
 end
