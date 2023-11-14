@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_13_212248) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_14_184833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,6 +92,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_212248) do
     t.index ["space_agency_id"], name: "index_spacecrafts_on_space_agency_id"
   end
 
+  create_table "travels", force: :cascade do |t|
+    t.date "beginning_date"
+    t.integer "duration"
+    t.bigint "planet_id", null: false
+    t.bigint "spacecraft_id", null: false
+    t.text "description"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["planet_id"], name: "index_travels_on_planet_id"
+    t.index ["spacecraft_id"], name: "index_travels_on_spacecraft_id"
+  end
+
   create_table "ufo_data", force: :cascade do |t|
     t.integer "max_crew_size"
     t.bigint "ufo_id", null: false
@@ -106,5 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_212248) do
   add_foreign_key "rocket_data", "spacecrafts", column: "rocket_id"
   add_foreign_key "space_shuttle_data", "spacecrafts", column: "space_shuttle_id"
   add_foreign_key "spacecrafts", "space_agencies"
+  add_foreign_key "travels", "planets"
+  add_foreign_key "travels", "spacecrafts"
   add_foreign_key "ufo_data", "spacecrafts", column: "ufo_id"
 end
