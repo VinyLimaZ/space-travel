@@ -3,5 +3,5 @@ class UfoDatum < ApplicationRecord
     inverse_of: :ufo_datum,
     dependent: :destroy
 
-  validates :max_crew_size, numericality: { only_integer: true }
+  validates :max_crew_size, numericality: { only_integer: true, allow_nil: true }
 end
