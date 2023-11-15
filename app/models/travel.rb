@@ -1,6 +1,7 @@
 class Travel < ApplicationRecord
   belongs_to :planet
   belongs_to :spacecraft
+  has_many :document, as: :documentable
 
   validates :duration, numericality: { only_integer: true }
 

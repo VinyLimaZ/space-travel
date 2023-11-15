@@ -4,4 +4,5 @@ class RocketDatum < ApplicationRecord
     dependent: :destroy
 
   belongs_to :payload
+  has_many :document, as: :documentable
 end
