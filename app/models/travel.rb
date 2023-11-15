@@ -2,6 +2,7 @@ class Travel < ApplicationRecord
   belongs_to :planet
   belongs_to :spacecraft
   has_many :document, as: :documentable
+  has_many :image, as: :imageable
 
   validates :duration, numericality: { only_integer: true }
 

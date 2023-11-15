@@ -5,4 +5,5 @@ class RocketDatum < ApplicationRecord
 
   belongs_to :payload
   has_many :document, as: :documentable
+  has_many :image, as: :imageable
 end
