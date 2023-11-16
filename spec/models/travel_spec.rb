@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Travel, type: :model do
@@ -11,12 +13,16 @@ RSpec.describe Travel, type: :model do
   end
 
   describe '#status' do
-    let(:planet) { Planet.create(name: 'asd',  earth_distance: 1) }
-    let(:spacecraft) { Rocket.create(name: 'lala', velocity: 1, fuel_in_days: 1, space_agency: SpaceAgency.create(name: 'BRASA')) }
+    let(:planet) { Planet.create(name: 'Bidu', earth_distance: 1) }
+    let(:spacecraft) do
+      Rocket.create(name: 'SpaceY', velocity: 1, fuel_in_days: 1, space_agency: SpaceAgency.create(name: 'BRASA'))
+    end
 
     context 'initial state' do
       context 'without state' do
-        subject(:travel) { Travel.new(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now) }
+        subject(:travel) do
+          Travel.new(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now)
+        end
 
         it 'assign scheduled state ' do
           expect(travel.scheduled?).to be true
@@ -24,17 +30,20 @@ RSpec.describe Travel, type: :model do
       end
 
       context 'with scheduled state' do
-        subject(:travel) { Travel.new(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled') }
+        subject(:travel) do
+          Travel.new(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled')
+        end
 
         it { is_expected.to be_valid }
       end
 
       context 'with another state' do
-        let(:states) { ['started', 'aborted', 'failed', 'finished'] }
+        let(:states) { %w[started aborted failed finished] }
 
         it 'is invalid' do
           states.each do |state|
-            travel = Travel.new(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now, status: state)
+            travel = Travel.new(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now,
+                                status: state)
 
             expect(travel).not_to be_valid
           end
@@ -42,7 +51,8 @@ RSpec.describe Travel, type: :model do
 
         it 'returns an error message' do
           states.each do |state|
-            travel = Travel.new(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now, status: state)
+            travel = Travel.new(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now,
+                                status: state)
             travel.valid?
 
             expect(travel.errors.full_messages).to include('Status need to start with scheduled')
@@ -52,7 +62,9 @@ RSpec.describe Travel, type: :model do
     end
 
     context 'scheduled transition' do
-      subject(:travel) { Travel.create(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled') }
+      subject(:travel) do
+        Travel.create(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled')
+      end
 
       context 'transiting to started' do
         it 'is valid' do
@@ -87,7 +99,7 @@ RSpec.describe Travel, type: :model do
 
       context 'transiting to finished' do
         it 'is invalid' do
-          travel.status  = 'finished'
+          travel.status = 'finished'
           travel.valid?
 
           expect(travel).not_to be_valid
@@ -103,7 +115,9 @@ RSpec.describe Travel, type: :model do
     end
 
     context 'started transition' do
-      subject(:travel) { Travel.create(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled') }
+      subject(:travel) do
+        Travel.create(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled')
+      end
 
       before do
         travel.started!
@@ -150,12 +164,14 @@ RSpec.describe Travel, type: :model do
     end
 
     context 'final transition' do
-      subject(:travel) { Travel.create(planet: planet, spacecraft: spacecraft, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled') }
+      subject(:travel) do
+        Travel.create(planet:, spacecraft:, duration: 10, beginning_date: 10.days.from_now, status: 'scheduled')
+      end
 
       let(:error_message) { 'Status is in the final state and can\'t be changed! Please create another trip' }
 
       context 'when status is aborted' do
-        let(:states) { ['scheduled', 'started', 'failed', 'finished'] }
+        let(:states) { %w[scheduled started failed finished] }
 
         before do
           travel.aborted!
@@ -184,13 +200,12 @@ RSpec.describe Travel, type: :model do
       end
 
       context 'when status is failed' do
-        let(:states) { ['scheduled', 'started', 'aborted', 'finished'] }
+        let(:states) { %w[scheduled started aborted finished] }
 
         before do
           travel.started!
           travel.failed!
         end
-
 
         it 'is invalid' do
           states.each do |state|
@@ -216,7 +231,7 @@ RSpec.describe Travel, type: :model do
       end
 
       context 'when status is finished' do
-        let(:states) { ['scheduled', 'started', 'failed', 'aborted'] }
+        let(:states) { %w[scheduled started failed aborted] }
 
         before do
           travel.started!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Travel < ApplicationRecord
   belongs_to :planet
   belongs_to :spacecraft
@@ -20,7 +22,7 @@ class Travel < ApplicationRecord
   end
 
   def middle_state
-    ['started', 'aborted']
+    %w[started aborted]
   end
 
   def middle_state?
@@ -28,7 +30,7 @@ class Travel < ApplicationRecord
   end
 
   def final_state
-    ['aborted', 'failed', 'finished']
+    %w[aborted failed finished]
   end
 
   def final_state?
