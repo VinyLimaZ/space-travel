@@ -7,10 +7,10 @@ class Travel < ApplicationRecord
   validates :duration, numericality: { only_integer: true }
 
   enum status: {
-    schedule: 0,
+    scheduled: 0,
     started: 1,
     aborted: 2,
     failed: 3,
     finished: 4
-  }
+  }, _default: 0
 end
