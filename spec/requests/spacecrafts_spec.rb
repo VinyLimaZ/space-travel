@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Spacecrafts", type: :request do
-  let!(:spacecrafts) { [rocket, space_shuttle, ufo] }
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
+  let!(:spacecrafts) { [rocket, space_shuttle, ufo] }
+
   describe "GET /index" do
     it "returns http success" do
       get "/spacecrafts", as: :json
