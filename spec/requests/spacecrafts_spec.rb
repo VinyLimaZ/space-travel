@@ -64,8 +64,8 @@ RSpec.describe "Spacecrafts", type: :request do
     end
   end
 
-  let(:space_agency) { SpaceAgency.create(name: 'BRASA') }
-  let(:payload) { Payload.create(name: 'Carga', kind: 0, weight: 1) }
+  let(:space_agency) { Fabricator(:space_agency) }
+  let(:payload) { Fabricator(:payload) }
   let(:rocket) { Fabricate.build(:rocket).tap(&:save) }
   let(:space_shuttle) { Fabricate.build(:space_shuttle).tap(&:save) }
   let(:ufo) { Fabricate.build(:ufo).tap(&:save) }
