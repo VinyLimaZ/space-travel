@@ -1,9 +1,9 @@
 json.merge! spacecraft.attributes
 
-if spacecraft.has_crew?
+if spacecraft.crew?
   json.max_crew_size spacecraft.max_crew_size
 end
 
-if spacecraft.has_payload?
+if spacecraft.payload?
   json.partial! spacecraft.payload, as: :payload
 end

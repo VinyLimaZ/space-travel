@@ -1,7 +1,4 @@
 class Spacecraft < ApplicationRecord
-  Rails.application.eager_load! if Rails.env.development?
-  TYPES = subclasses.map(&:to_s).freeze
-
   belongs_to :space_agency, foreign_key: :space_agency_id
 
   has_many :travels
@@ -12,11 +9,11 @@ class Spacecraft < ApplicationRecord
   validates :velocity, numericality: { only_integer: true, greater_than: 0 }
   validates :fuel_in_days, numericality: { only_integer: true }
 
-  def has_crew?
-    type.in?(%w[Ufo SpaceShuttle])
+  def crew?
+    try(:max_crew_size)
   end
 
-  def has_payload?
-    type.in?(%w[Rocket])
+  def payload?
+    try(:payload)
   end
 end
