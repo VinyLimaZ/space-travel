@@ -2,7 +2,7 @@
 
 class Travel < ApplicationRecord
   belongs_to :planet
-  belongs_to :spacecraft
+  belongs_to :spacecraft, foreign_key: :spacecraft_id
   has_many :document, as: :documentable
   has_many :image, as: :imageable
 
@@ -16,6 +16,10 @@ class Travel < ApplicationRecord
     failed: 3,
     finished: 4
   }, _default: 0
+
+  def beginning_date
+    self[:beginning_date].strftime
+  end
 
   def initial_state
     ['scheduled']

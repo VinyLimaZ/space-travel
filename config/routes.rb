@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   defaults format: :json do
+    resources :travels, only: %i[index show create update]
     resources :spacecrafts, only: %i[index show]
     resources :rockets, only: %i[index show create update]
     resources :ufos, only: %i[index show create update]
