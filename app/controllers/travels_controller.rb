@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TravelsController < ApplicationController
   def index
     @travels = Travel.all

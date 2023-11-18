@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Payload < ApplicationRecord
   has_many :document, as: :documentable
   has_many :image, as: :imageable

@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Ufos", type: :request do
+RSpec.describe 'Ufos', type: :request do
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
   let!(:ufos) { [ufo_one, ufo_two] }
   before { do_request }
 
-  describe "GET /index" do
-    let(:do_request) { get "/ufos", as: :json }
+  describe 'GET /index' do
+    let(:do_request) { get '/ufos', as: :json }
 
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
@@ -36,13 +38,13 @@ RSpec.describe "Ufos", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     let(:ufo) { ufos.sample }
     let(:ufo_id) { ufo.id }
     let(:do_request) { get "/ufos/#{ufo_id}", as: :json }
 
     context 'when querying a valid ufo' do
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
       end
 
@@ -77,11 +79,10 @@ RSpec.describe "Ufos", type: :request do
     end
   end
 
+  describe 'POST /create' do
+    let(:do_request) { post '/ufos', as: :json, params: create_params }
 
-  describe "POST /create" do
-    let(:do_request) { post "/ufos", as: :json, params: create_params }
-
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
@@ -93,12 +94,13 @@ RSpec.describe "Ufos", type: :request do
             velocity: create_params[:velocity],
             fuel_in_days: create_params[:fuel_in_days],
             max_crew_size: create_params[:ufo_datum_attributes][:max_crew_size]
-          })
+          }
+        )
       end
     end
 
     context 'with required params missing' do
-      let(:do_request) { post "/ufos", as: :json, params: {} }
+      let(:do_request) { post '/ufos', as: :json, params: {} }
 
       it 'returns http unprocessable_entity' do
         expect(response).to have_http_status(:unprocessable_entity)
@@ -114,11 +116,11 @@ RSpec.describe "Ufos", type: :request do
     end
   end
 
-  describe "PATCH /update" do
+  describe 'PATCH /update' do
     let(:do_request) { patch "/ufos/#{ufo_one.id}", as: :json, params: update_params }
 
     context 'with valid params' do
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
       end
 

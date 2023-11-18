@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Travels", type: :request do
+RSpec.describe 'Travels', type: :request do
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
   let!(:travels) { [travel_one, travel_two] }
   before { do_request }
 
-  describe "GET /index" do
-    let(:do_request) { get "/travels", as: :json }
+  describe 'GET /index' do
+    let(:do_request) { get '/travels', as: :json }
 
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
@@ -38,13 +40,13 @@ RSpec.describe "Travels", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     let(:travel) { travels.sample }
     let(:travel_id) { travel.id }
     let(:do_request) { get "/travels/#{travel_id}", as: :json }
 
     context 'when querying a valid travel' do
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
       end
 
@@ -59,7 +61,7 @@ RSpec.describe "Travels", type: :request do
             description: travel.description,
             status: travel.status
           }
-         )
+        )
       end
     end
 
@@ -80,11 +82,10 @@ RSpec.describe "Travels", type: :request do
     end
   end
 
+  describe 'POST /create' do
+    let(:do_request) { post '/travels', as: :json, params: create_params }
 
-  describe "POST /create" do
-    let(:do_request) { post "/travels", as: :json, params: create_params }
-
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
@@ -98,12 +99,13 @@ RSpec.describe "Travels", type: :request do
             spacecraft_id: create_params[:spacecraft_id],
             description: create_params[:description],
             status: scheduled_status[:status]
-          })
+          }
+        )
       end
     end
 
     context 'with required params missing' do
-      let(:do_request) { post "/travels", as: :json, params: {} }
+      let(:do_request) { post '/travels', as: :json, params: {} }
 
       it 'returns http unprocessable_entity' do
         expect(response).to have_http_status(:unprocessable_entity)
@@ -119,11 +121,11 @@ RSpec.describe "Travels", type: :request do
     end
   end
 
-  describe "PATCH /update" do
+  describe 'PATCH /update' do
     let(:do_request) { patch "/travels/#{travel_one.id}", as: :json, params: update_params }
 
     context 'with valid params' do
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
       end
 
@@ -171,7 +173,7 @@ RSpec.describe "Travels", type: :request do
       duration: 1,
       planet_id: planet.id,
       spacecraft_id: ufo.id,
-      description: "descrição"
+      description: 'descrição'
     }
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Planet < ApplicationRecord
   has_many :travels
   has_many :document, as: :documentable

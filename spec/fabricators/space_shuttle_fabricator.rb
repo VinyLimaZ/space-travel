@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:space_shuttle) do
   name { 'Busão' }
   velocity { 10 }

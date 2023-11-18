@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:rocket) do
   name { 'SpaceY' }
   velocity { 10 }

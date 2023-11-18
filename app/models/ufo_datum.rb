@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class UfoDatum < ApplicationRecord
   belongs_to :ufo,
-    inverse_of: :ufo_datum,
-    dependent: :destroy
+             inverse_of: :ufo_datum,
+             dependent: :destroy
   has_many :document, as: :documentable
   has_many :image, as: :imageable
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRocketData < ActiveRecord::Migration[7.1]
   def change
     create_table :rocket_data do |t|

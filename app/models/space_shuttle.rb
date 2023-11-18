@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpaceShuttle < Spacecraft
   belongs_to :space_agency
   has_one :space_shuttle_datum, required: false

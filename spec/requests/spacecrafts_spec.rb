@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Spacecrafts", type: :request do
+RSpec.describe 'Spacecrafts', type: :request do
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
   let!(:spacecrafts) { [rocket, space_shuttle, ufo] }
 
-  describe "GET /index" do
-    it "returns http success" do
-      get "/spacecrafts", as: :json
+  describe 'GET /index' do
+    it 'returns http success' do
+      get '/spacecrafts', as: :json
 
       expect(response).to have_http_status(:success)
       expect(json).to include_json(
@@ -45,10 +47,10 @@ RSpec.describe "Spacecrafts", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     let(:spacecraft) { spacecrafts.sample }
 
-    it "returns http success" do
+    it 'returns http success' do
       get "/spacecrafts/#{spacecraft.id}", as: :json
 
       expect(response).to have_http_status(:success)

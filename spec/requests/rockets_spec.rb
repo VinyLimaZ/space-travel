@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Rockets", type: :request do
+RSpec.describe 'Rockets', type: :request do
   let(:json) { JSON.parse(response.body, symbolize_names: true) }
   let!(:rockets) { [rocket_one, rocket_two] }
   before { do_request }
 
-  describe "GET /index" do
-    let(:do_request) { get "/rockets", as: :json }
+  describe 'GET /index' do
+    let(:do_request) { get '/rockets', as: :json }
 
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
@@ -46,13 +48,13 @@ RSpec.describe "Rockets", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     let(:rocket) { rockets.sample }
     let(:rocket_id) { rocket.id }
     let(:do_request) { get "/rockets/#{rocket_id}", as: :json }
 
     context 'when querying a valid rocket' do
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
       end
 
@@ -92,11 +94,10 @@ RSpec.describe "Rockets", type: :request do
     end
   end
 
+  describe 'POST /create' do
+    let(:do_request) { post '/rockets', as: :json, params: create_params }
 
-  describe "POST /create" do
-    let(:do_request) { post "/rockets", as: :json, params: create_params }
-
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
@@ -114,12 +115,13 @@ RSpec.describe "Rockets", type: :request do
               description: payload.description,
               kind: payload.kind
             }
-          })
+          }
+        )
       end
     end
 
     context 'with required params missing' do
-      let(:do_request) { post "/rockets", as: :json, params: {} }
+      let(:do_request) { post '/rockets', as: :json, params: {} }
 
       it 'returns http unprocessable_entity' do
         expect(response).to have_http_status(:unprocessable_entity)
@@ -135,11 +137,11 @@ RSpec.describe "Rockets", type: :request do
     end
   end
 
-  describe "PATCH /update" do
+  describe 'PATCH /update' do
     let(:do_request) { patch "/rockets/#{rocket_one.id}", as: :json, params: update_params }
 
     context 'with valid params' do
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
       end
 

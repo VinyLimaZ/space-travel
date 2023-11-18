@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ufo < Spacecraft
   belongs_to :space_agency
   has_one :ufo_datum, required: false

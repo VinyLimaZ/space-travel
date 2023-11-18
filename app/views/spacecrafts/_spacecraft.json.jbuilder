@@ -1,9 +1,7 @@
+# frozen_string_literal: true
+
 json.merge! spacecraft.attributes
 
-if spacecraft.crew?
-  json.max_crew_size spacecraft.max_crew_size
-end
+json.max_crew_size spacecraft.max_crew_size if spacecraft.crew?
 
-if spacecraft.payload?
-  json.partial! spacecraft.payload, as: :payload
-end
+json.partial! spacecraft.payload, as: :payload if spacecraft.payload?

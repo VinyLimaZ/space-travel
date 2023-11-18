@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class SpaceShuttleDatum < ApplicationRecord
   belongs_to :space_shuttle,
-    inverse_of: :space_shuttle_datum,
-    dependent: :destroy
+             inverse_of: :space_shuttle_datum,
+             dependent: :destroy
   has_many :document, as: :documentable
   has_many :image, as: :imageable
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UfosController < ApplicationController
   def index
     @spacecrafts = Ufo.all

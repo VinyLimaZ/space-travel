@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:ufo) do
   name { 'OVNI' }
   velocity { 10 }

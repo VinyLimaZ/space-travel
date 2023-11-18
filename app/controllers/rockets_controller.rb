@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RocketsController < ApplicationController
   def index
     @spacecrafts = Rocket.all

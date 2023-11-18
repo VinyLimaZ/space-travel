@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spacecraft < ApplicationRecord
   belongs_to :space_agency, foreign_key: :space_agency_id
 

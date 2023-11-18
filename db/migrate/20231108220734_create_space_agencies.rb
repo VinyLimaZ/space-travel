@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSpaceAgencies < ActiveRecord::Migration[7.1]
   def change
     create_table :space_agencies do |t|

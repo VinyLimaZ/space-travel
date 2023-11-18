@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rocket < Spacecraft
   belongs_to :space_agency
   has_one :rocket_datum, required: false

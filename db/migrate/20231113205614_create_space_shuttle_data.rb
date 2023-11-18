@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSpaceShuttleData < ActiveRecord::Migration[7.1]
   def change
     create_table :space_shuttle_data do |t|

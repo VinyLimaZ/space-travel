@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePayloads < ActiveRecord::Migration[7.1]
   def change
     create_table :payloads do |t|

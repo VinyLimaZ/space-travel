@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   defaults format: :json do
     resources :travels, only: %i[index show create update]
@@ -7,5 +9,5 @@ Rails.application.routes.draw do
     resources :space_shuttles, only: %i[index show create update]
   end
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 end
