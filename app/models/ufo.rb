@@ -5,4 +5,6 @@ class Ufo < Spacecraft
   has_many :image, as: :imageable
 
   delegate :max_crew_size, to: :ufo_datum, allow_nil: true
+
+  accepts_nested_attributes_for :ufo_datum, update_only: true
 end
