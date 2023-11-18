@@ -1,3 +1,3 @@
 json.payload do
-  json.extract! payload, :name, :weight, :description, :kind
+  json.merge! payload.attributes
 end
