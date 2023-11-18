@@ -5,4 +5,6 @@ class SpaceShuttle < Spacecraft
   has_many :image, as: :imageable
 
   delegate :max_crew_size, to: :space_shuttle_datum, allow_nil: true
+
+  accepts_nested_attributes_for :space_shuttle_datum, update_only: true
 end
