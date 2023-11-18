@@ -1,23 +1,19 @@
 class RocketsController < ApplicationController
   def index
     @spacecrafts = Rocket.all
-
-    render formats: :json
   end
 
   def show
     @spacecraft = Rocket.find(params[:id])
-
-    render formats: :json
   end
 
   def create
     @spacecraft = Rocket.new(rocket_params)
 
     if @spacecraft.save
-      render :show, formats: :json
+      render :show
     else
-      render 'spacecrafts/error', as: :json, status: :unprocessable_entity
+      render 'spacecrafts/error', status: :unprocessable_entity
     end
   end
 
@@ -25,9 +21,9 @@ class RocketsController < ApplicationController
     @spacecraft = Rocket.find(params[:id])
 
     if @spacecraft.update(rocket_params)
-      render :show, formats: :json
+      render :show
     else
-      render 'spacecrafts/error', as: :json, status: :unprocessable_entity
+      render 'spacecrafts/error', status: :unprocessable_entity
     end
   end
 

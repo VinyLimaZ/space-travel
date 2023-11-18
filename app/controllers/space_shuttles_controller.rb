@@ -1,23 +1,19 @@
 class SpaceShuttlesController < ApplicationController
   def index
     @spacecrafts = SpaceShuttle.all
-
-    render formats: :json
   end
 
   def show
     @spacecraft = SpaceShuttle.find(params[:id])
-
-    render formats: :json
   end
 
   def create
     @spacecraft = SpaceShuttle.new(space_shuttle_params)
 
     if @spacecraft.save
-      render :show, formats: :json
+      render :show
     else
-      render 'spacecrafts/error', as: :json, status: :unprocessable_entity
+      render 'spacecrafts/error', status: :unprocessable_entity
     end
   end
 
@@ -25,9 +21,9 @@ class SpaceShuttlesController < ApplicationController
     @spacecraft = SpaceShuttle.find(params[:id])
 
     if @spacecraft.update(space_shuttle_params)
-      render :show, formats: :json
+      render :show
     else
-      render 'spacecrafts/error', as: :json, status: :unprocessable_entity
+      render 'spacecrafts/error', status: :unprocessable_entity
     end
   end
 
