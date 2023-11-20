@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  db:
+    image: 'postgres:latest'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  space-travel:
+    build: ./
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/docker/app
+    depends_on:
+      - db
+    env_file:
+      - ./.env.dev
+    command: ["sh", "boot.sh"]
+
+volumes:
+  postgres:
