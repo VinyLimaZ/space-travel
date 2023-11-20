@@ -1,10 +1,21 @@
 # frozen_string_literal: true
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+
+planet = Fabricate.times(4,:planet).last
+space_agency = Fabricate.times(4,:space_agency).last
+payload = Fabricate.times(4, :payload).last
+
+rocket_datum = Fabricate.build(:rocket_datum, payload: payload)
+rocket = Fabricate.build(:rocket, rocket_datum: rocket_datum)
+rocket.save
+
+ufo_datum = Fabricate.build(:ufo_datum)
+ufo = Fabricate.build(:ufo, ufo_datum: ufo_datum)
+ufo.save
+
+space_shuttle_datum = Fabricate.build(:space_shuttle_datum)
+space_shuttle = Fabricate.build(:space_shuttle, space_shuttle_datum: space_shuttle_datum)
+space_shuttle.save
+
+Fabricate(:travel,  planet: planet, spacecraft: rocket)
+Fabricate(:travel,  planet: planet, spacecraft: ufo)
+Fabricate(:travel,  planet: planet, spacecraft: space_shuttle)
